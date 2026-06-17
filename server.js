@@ -142,7 +142,7 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok' });
 });
 
-// Page routes - serve appropriate HTML based on route
+// Page routes - serve appropriate HTML based on route (MUST be before wildcard route)
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
