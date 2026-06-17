@@ -155,7 +155,7 @@ app.get('/main', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'main.html'));
 });
 
-app.get('/play', (req, res) => {
+app.get('/play-260605.html', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'play.html'));
 });
 
