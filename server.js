@@ -142,26 +142,17 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok' });
 });
 
-// Page routes - serve appropriate HTML based on route (MUST be before wildcard route)
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
-
-app.get('/portal', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'portal.html'));
-});
-
-app.get('/main', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'main.html'));
-});
-
-app.get('/play-260605.html', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'play.html'));
-});
-
-// SPA fallback - serve index.html for unknown routes
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+// Dynamic routes for public HTML files (based on filename)
+app.get('/:filename', (req, res) => {
+  const filename = req.params.filename;
+  const filePath = path.join(__dirname, 'public', filename);
+  
+  res.sendFile(filePath, (err) => {
+    if (err) {
+      // If file not found, serve index.html as fallback
+      res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    }
+  });
 });
 
 // Error handling middleware
